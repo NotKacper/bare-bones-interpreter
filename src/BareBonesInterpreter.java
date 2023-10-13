@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class BareBonesInterpreter {
 	private final HashMap<String, Integer> variables = new HashMap<>();
 	// variables will store the names and values of variables in a hashmap
+	
 	private final Stack<ArrayList<String>> loopStack = new Stack<>();
 	// loopStack will store indices of the while loop stored
 	// along with the variable on which the loop is dependent on
