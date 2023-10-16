@@ -11,6 +11,8 @@ public class BareBonesInterpreter {
 	private final Stack<ArrayList<String>> loopStack = new Stack<>();
 	private final SyntaxMatcher syntaxMatcher = new SyntaxMatcher();
 
+	private boolean debugging;
+
 	public static void main(String[] args) throws IOException {
 		BareBonesInterpreter interpreter = new BareBonesInterpreter();
 		interpreter.start();
@@ -23,11 +25,10 @@ public class BareBonesInterpreter {
 			variables.clear();
 			logicalLineToFileLine.clear();
 			loopStack.clear();
+			debugging = getUserInput("Do you want to debug a file? y/n").equalsIgnoreCase("y");
 			run();
 			// allows user to interpret multiple files in one run of the program.
-			if (getUserInput("Do you want to interpret another file? y/n").equalsIgnoreCase("n")) {
-				running = false;
-			}
+			running = !getUserInput("Do you want to interpret another file? y/n").equalsIgnoreCase("n");
 		}
 	}
 
@@ -45,7 +46,7 @@ public class BareBonesInterpreter {
 		}
 	}
 
-	private void interpretCode(ArrayList<String> code) throws DecrementationException, InvalidSyntaxException {
+	private void interpretCode(ArrayList<String> code) throws DecrementationException, InvalidSyntaxException, IOException {
 		// the commandExpression regular expression pattern checks for a valid command.
 		// the loopExpression regular expression pattern checks for a valid while loop.
 		// the loopEndExpression checks for the end of a while loop.
@@ -57,6 +58,10 @@ public class BareBonesInterpreter {
 			// executes line
 			i = executeLine(lineType, code, i); // returns the memory pointer to which the next line points to
 			// displays the state of all variables
+			if (debugging) {
+				System.out.println("line " + logicalLineToFileLine.get(i) + ": " + code.get(i));
+				getUserInput("enter any input to continue");
+			}
 			displayStatesOfVariables(i);
 		}
 	}
