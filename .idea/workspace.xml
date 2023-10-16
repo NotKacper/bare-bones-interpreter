@@ -7,7 +7,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d983a183-bc1d-4ca7-96ec-3069fb341066" name="Changes" comment="" />
+    <list default="true" id="d983a183-bc1d-4ca7-96ec-3069fb341066" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/demo.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multiplication.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/InvalidSyntaxException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SyntaxMatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Variable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BareBonesInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BareBonesInterpreter.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,6 +51,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -61,6 +71,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\super\OneDrive - University of Southampton\Bsc Mathematics with Computer Science\Programming I\Space Cadets\Challenge2" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
     </key>
   </component>
   <component name="RunManager">
@@ -89,10 +102,33 @@
       <workItem from="1697450209601" duration="654000" />
       <workItem from="1697450984459" duration="1935000" />
       <workItem from="1697458217433" duration="2001000" />
+      <workItem from="1697470723205" duration="7060000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="java-exception" />
+        <breakpoint enabled="true" type="javascript-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

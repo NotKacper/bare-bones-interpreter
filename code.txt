@@ -1,5 +1,0 @@
-incr x;
-
-kasodq;
-
-decr y;
