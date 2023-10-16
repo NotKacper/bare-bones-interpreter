@@ -55,19 +55,22 @@ public class BareBonesInterpreter {
 			// checks if a line of code is a command
 			lineType = syntaxMatcher.matchToSyntax(code.get(i));
 			// executes line
-			executeLine(lineType, code, i);
+			i = executeLine(lineType, code, i); // returns the memory pointer to which the next line points to
 			// displays the state of all variables
 			displayStatesOfVariables(i);
 		}
 	}
 
-	private void executeLine(String lineType, ArrayList<String> code, int i) throws InvalidSyntaxException, DecrementationException {
+	private int executeLine(String lineType, ArrayList<String> code, int i) throws InvalidSyntaxException, DecrementationException {
 		switch (lineType) {
 			case "command" -> executeCommand(code.get(i));
 			case "loop" -> executeWhileLoop(code.get(i), i);
-			case "end" -> i = endWhileLoop(i);
+			case "end" -> {
+				return endWhileLoop(i);
+			}
 			default -> throw new InvalidSyntaxException("Invalid syntax at line " + logicalLineToFileLine.get(i));
 		}
+		return i;
 	}
 
 	private int endWhileLoop(int i) {
