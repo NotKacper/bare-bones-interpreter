@@ -14,10 +14,13 @@ public class BareBonesInterpreter {
 	// variables map will store the names and values of variables in a hashmap
 	private final HashMap<String, Integer> variables = new HashMap<>();
 
+	// variables will store the names and values of variables in a hashmap
+	
+	private final Stack<ArrayList<String>> loopStack = new Stack<>();
 	// loopStack will store indices of the while loop stored
 	// along with the variable on which the loop is dependent on
 	// as strings in order to reduce the type of the arraylist to singular
-	private final Stack<ArrayList<String>> loopStack = new Stack<>();
+
 
 
 	public static void main(String[] args) throws IOException {
