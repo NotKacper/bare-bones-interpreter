@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class BareBonesInterpreter {
+public class Interpreter {
 
 	private final HashMap<Integer, Integer> logicalLineToFileLine = new HashMap<>();
 	private final HashMap<String, Variable> variables = new HashMap<>();
@@ -13,37 +13,32 @@ public class BareBonesInterpreter {
 
 	private boolean debugging;
 
-	public static void main(String[] args) throws IOException {
-		BareBonesInterpreter interpreter = new BareBonesInterpreter();
-		interpreter.start();
+	public void clearRuntime() {
+		variables.clear();
+		logicalLineToFileLine.clear();
+		loopStack.clear();
 	}
 
-	public void start() throws IOException {
-		boolean running = true;
-		while (running) {
-			// clear all variables, loops out of stack, indexing maps
-			variables.clear();
-			logicalLineToFileLine.clear();
-			loopStack.clear();
-			debugging = getUserInput("Do you want to debug a file? y/n").equalsIgnoreCase("y");
-			run();
-			// allows user to interpret multiple files in one run of the program.
-			running = !getUserInput("Do you want to interpret another file? y/n").equalsIgnoreCase("n");
-		}
+	public void setDebugging(boolean input) {
+		debugging = input;
 	}
 
-	private void run() {
+	public void run() {
+		clearRuntime();
 		try {
-			// the list of all lines of code from the file is acquired.
-			String fileName = getUserInput("What file would you like to interpret in the directory?");
+			String fileName = IOHandler.getUserInput("What file would you like to interpret?");
 			// store file lines inside an ArrayList as Strings
-			ArrayList<String> file = getFileContents(fileName);
+			ArrayList<String> file = IOHandler.getFileContents(fileName, logicalLineToFileLine);
 			// method which goes line by line executing the file code
 			interpretCode(file);
 		} catch (Exception error) {
 			// outputs error messages
 			System.out.println(error.getMessage());
 		}
+	}
+
+	public void getFile(String FileName) {
+
 	}
 
 	private void interpretCode(ArrayList<String> code) throws DecrementationException, InvalidSyntaxException, IOException {
@@ -58,11 +53,11 @@ public class BareBonesInterpreter {
 			// executes line
 			i = executeLine(lineType, code, i); // returns the memory pointer to which the next line points to
 			// displays the state of all variables
+			IOHandler.displayStatesOfVariables(i, variables, logicalLineToFileLine);
 			if (debugging) {
 				System.out.println("line " + logicalLineToFileLine.get(i) + ": " + code.get(i));
-				getUserInput("enter any input to continue");
+				IOHandler.getUserInput("enter any input to continue");
 			}
-			displayStatesOfVariables(i);
 		}
 	}
 
@@ -99,17 +94,6 @@ public class BareBonesInterpreter {
 		loopStack.peek().add(String.valueOf(index));
 	}
 
-	private void displayStatesOfVariables(int index) {
-		StringBuilder output = new StringBuilder();
-		int value;
-		for (String variable : variables.keySet()) {
-			value = variables.get(variable).getValue();
-			output.append(variable).append(" : ").append(value).append(' ');
-		}
-		output.append("at line ").append(logicalLineToFileLine.get(index));
-		System.out.println(output);
-	}
-
 	private void executeCommand(String command) throws DecrementationException {
 		String operator = command.substring(0, 5).trim(); // returns 1 of "incr", "decr", "clear"
 		String variable = command.substring(5, command.length() - 1).trim();
@@ -117,34 +101,5 @@ public class BareBonesInterpreter {
 			variables.put(variable, new Variable());
 		}
 		variables.get(variable).update(operator);
-	}
-
-	private String getUserInput(String message) throws IOException {
-		String fileName;
-		InputStreamReader streamReader = new InputStreamReader(System.in);
-		BufferedReader bufferedReader = new BufferedReader(streamReader);
-		System.out.println(message);
-		fileName = bufferedReader.readLine();
-		return fileName;
-	}
-
-	private ArrayList<String> getFileContents(String fileName) throws FileNotFoundException {
-		File interpreterTarget = new File(fileName);
-		Scanner targetScanner = new Scanner(interpreterTarget);
-		ArrayList<String> output = new ArrayList<>();
-		String line;
-		int count = 0;
-		while (targetScanner.hasNext()) {
-			count++;
-			line = targetScanner.nextLine().trim(); // gets rid of leading whitespace
-			if (line.isEmpty()) { // checks if line is empty and avoids it if so
-				continue;
-			}
-			// map the index of the code in the output ArrayList to the files actual line index
-			logicalLineToFileLine.put(output.size(), count);
-			output.add(line);
-		}
-		targetScanner.close();
-		return output;
 	}
 }
