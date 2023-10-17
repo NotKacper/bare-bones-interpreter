@@ -7,10 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d983a183-bc1d-4ca7-96ec-3069fb341066" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BareBonesInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BareBonesInterpreter.java" afterDir="false" />
-    </list>
+    <list default="true" id="d983a183-bc1d-4ca7-96ec-3069fb341066" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +93,7 @@
       <workItem from="1697450209601" duration="654000" />
       <workItem from="1697450984459" duration="1935000" />
       <workItem from="1697458217433" duration="2001000" />
-      <workItem from="1697470723205" duration="8598000" />
+      <workItem from="1697470723205" duration="8785000" />
     </task>
     <servers />
   </component>
