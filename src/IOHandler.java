@@ -13,6 +13,10 @@ public class IOHandler {
 		return fileName;
 	}
 
+	public static void outputMessage(String input) {
+		System.out.println(input);
+	}
+
 	public static ArrayList<String> getFileContents(String fileName, HashMap<Integer, Integer> lineMap) throws FileNotFoundException {
 		File interpreterTarget = new File(fileName);
 		Scanner targetScanner = new Scanner(interpreterTarget);
@@ -36,11 +40,12 @@ public class IOHandler {
 	public static void displayStatesOfVariables(int index, HashMap<String, Variable> variableMap, HashMap<Integer, Integer> lineMap) {
 		StringBuilder output = new StringBuilder();
 		int value;
+		output.append("At line ").append(lineMap.get(index)).append(" { ");
 		for (String variable : variableMap.keySet()) {
 			value = variableMap.get(variable).getValue();
 			output.append(variable).append(" : ").append(value).append(' ');
 		}
-		output.append("at line ").append(lineMap.get(index));
+		output.append("}");
 		System.out.println(output);
 	}
 }

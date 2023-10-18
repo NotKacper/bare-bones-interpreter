@@ -1,7 +1,6 @@
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.Stack;
 
 public class Interpreter {
@@ -13,32 +12,34 @@ public class Interpreter {
 
 	private boolean debugging;
 
+	public void start() throws IOException {
+		boolean running = true;
+		while (running) {
+			this.run();
+			// allows user to interpret multiple files in one run of the program.
+			running = !IOHandler.getUserInput("Do you want to interpret another file? y/n").equalsIgnoreCase("n");
+		}
+	}
+
 	public void clearRuntime() {
 		variables.clear();
 		logicalLineToFileLine.clear();
 		loopStack.clear();
 	}
 
-	public void setDebugging(boolean input) {
-		debugging = input;
-	}
-
 	public void run() {
 		clearRuntime();
 		try {
 			String fileName = IOHandler.getUserInput("What file would you like to interpret?");
+			debugging = IOHandler.getUserInput("Would you like to debug? y/n").equalsIgnoreCase("y");
 			// store file lines inside an ArrayList as Strings
 			ArrayList<String> file = IOHandler.getFileContents(fileName, logicalLineToFileLine);
 			// method which goes line by line executing the file code
 			interpretCode(file);
 		} catch (Exception error) {
 			// outputs error messages
-			System.out.println(error.getMessage());
+			IOHandler.outputMessage(error.getMessage());
 		}
-	}
-
-	public void getFile(String FileName) {
-
 	}
 
 	private void interpretCode(ArrayList<String> code) throws DecrementationException, InvalidSyntaxException, IOException {
@@ -55,7 +56,7 @@ public class Interpreter {
 			// displays the state of all variables
 			IOHandler.displayStatesOfVariables(i, variables, logicalLineToFileLine);
 			if (debugging) {
-				System.out.println("line " + logicalLineToFileLine.get(i) + ": " + code.get(i));
+				IOHandler.outputMessage(code.get(i));
 				IOHandler.getUserInput("enter any input to continue");
 			}
 		}
