@@ -8,11 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d983a183-bc1d-4ca7-96ec-3069fb341066" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IOHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IOHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/demo.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InterpreterInterface.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +72,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="BareBonesInterpreter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="BareBonesInterpreter" />
       <module name="SpaceCadetsChallenge2" />
@@ -82,8 +80,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="SpaceCadetsChallenge2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.BareBonesInterpreter" />
       </list>
     </recent_temporary>
@@ -104,7 +110,8 @@
       <workItem from="1697524952094" duration="191000" />
       <workItem from="1697554392838" duration="3174000" />
       <workItem from="1697569659355" duration="2733000" />
-      <workItem from="1697665828768" duration="709000" />
+      <workItem from="1697665828768" duration="1353000" />
+      <workItem from="1697748996719" duration="4738000" />
     </task>
     <servers />
   </component>

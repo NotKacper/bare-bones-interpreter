@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
@@ -65,7 +66,9 @@ public class Interpreter {
 	private int executeLine(String lineType, ArrayList<String> code, int i) throws InvalidSyntaxException, DecrementationException {
 		switch (lineType) {
 			case "command" -> executeCommand(code.get(i));
-			case "loop" -> executeWhileLoop(code.get(i), i);
+			case "loop" -> {
+				return executeWhileLoop(code.get(i), i, code);
+			}
 			case "end" -> {
 				return endWhileLoop(i);
 			}
@@ -88,11 +91,34 @@ public class Interpreter {
 		return i;
 	}
 
-	private void executeWhileLoop(String line, int index) {
+	private int executeWhileLoop(String line, int index, ArrayList<String> code) {
 		String variable = line.substring(6, line.length() - 10);
-		loopStack.push(new ArrayList<>());
-		loopStack.peek().add(variable);
-		loopStack.peek().add(String.valueOf(index));
+		if (variables.get(variable).getValue() > 0) {
+			loopStack.push(new ArrayList<>());
+			loopStack.peek().add(variable);
+			loopStack.peek().add(String.valueOf(index));
+			return index;
+		}
+		else{
+			return skipLoop(code, index);
+		}
+	}
+
+	private int skipLoop(ArrayList<String> code, int index) {
+		int noOfLoops = loopStack.size();
+		int count = 0;
+		int temp = index;
+		do {
+			if(code.get(temp).contains("while")) {
+				noOfLoops++;
+			}
+			else if(code.get(temp).contains("end;")) {
+				count++;
+			}
+			temp++;
+		}
+		while(noOfLoops != count);
+		return temp - 1;
 	}
 
 	private void executeCommand(String command) throws DecrementationException {

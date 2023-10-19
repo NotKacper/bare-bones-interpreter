@@ -1,7 +1,26 @@
 clear X;
-incr X;
-incr X;
-incr X;
+incr Y;
 while X not 0 do;
    decr X;
+    while Y not 0 do;
+    while Y not 0 do;
+        decr Y;
+        end;
+        while Y not 0 do;
+            decr Y;
+            end;
+            while Y not 0 do;
+                decr Y;
+                end;
+                while Y not 0 do;
+                    decr Y;
+                    end;
+                    while Y not 0 do;
+                        decr Y;
+                        end;
+    decr Y;
+    end;
+
+
+
 end;
