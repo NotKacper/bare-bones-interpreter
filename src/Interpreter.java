@@ -93,7 +93,7 @@ public class Interpreter {
 
 	private int executeWhileLoop(String line, int index, ArrayList<String> code) {
 		String variable = line.substring(6, line.length() - 10);
-		if (variables.get(variable).getValue() > 0) {
+		if (variables.get(variable).getValue() != 0) {
 			loopStack.push(new ArrayList<>());
 			loopStack.peek().add(variable);
 			loopStack.peek().add(String.valueOf(index));
