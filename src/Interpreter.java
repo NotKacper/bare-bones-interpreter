@@ -13,6 +13,10 @@ public class Interpreter {
 
 	private boolean debugging;
 
+	private int currentLine;
+
+	private ArrayList<String> sourceCode;
+
 	public void start() throws IOException {
 		boolean running = true;
 		while (running) {
@@ -34,94 +38,90 @@ public class Interpreter {
 			String fileName = IOHandler.getUserInput("What file would you like to interpret?");
 			debugging = IOHandler.getUserInput("Would you like to debug? y/n").equalsIgnoreCase("y");
 			// store file lines inside an ArrayList as Strings
-			ArrayList<String> file = IOHandler.getFileContents(fileName, logicalLineToFileLine);
+			sourceCode = IOHandler.getFileContents(fileName, logicalLineToFileLine);
 			// method which goes line by line executing the file code
-			interpretCode(file);
+			interpretCode();
 		} catch (Exception error) {
 			// outputs error messages
 			IOHandler.outputMessage(error.getMessage());
 		}
 	}
 
-	private void interpretCode(ArrayList<String> code) throws DecrementationException, InvalidSyntaxException, IOException {
+	private void interpretCode() throws DecrementationException, InvalidSyntaxException, IOException {
 		// the commandExpression regular expression pattern checks for a valid command.
 		// the loopExpression regular expression pattern checks for a valid while loop.
 		// the loopEndExpression checks for the end of a while loop.
 		// linearly search through the code ArrayList with index pointer in order to point to earlier code to execute loops.
 		String lineType;
-		for (int i = 0; i < code.size(); i++) {
+		for (; currentLine < sourceCode.size(); currentLine++) {
 			// checks if a line of code is a command
-			lineType = syntaxMatcher.matchToSyntax(code.get(i));
+			lineType = syntaxMatcher.matchToSyntax(sourceCode.get(currentLine));
 			// executes line
-			i = executeLine(lineType, code, i); // returns the memory pointer to which the next line points to
+			executeLine(lineType); // returns the memory pointer to which the next line points to
 			// displays the state of all variables
-			IOHandler.displayStatesOfVariables(i, variables, logicalLineToFileLine);
+			IOHandler.displayStatesOfVariables(currentLine, variables, logicalLineToFileLine);
 			if (debugging) {
-				IOHandler.outputMessage(code.get(i));
+				IOHandler.outputMessage(sourceCode.get(currentLine));
 				IOHandler.getUserInput("enter any input to continue");
 			}
 		}
 	}
 
-	private int executeLine(String lineType, ArrayList<String> code, int i) throws InvalidSyntaxException, DecrementationException {
+	private void executeLine(String lineType) throws InvalidSyntaxException, DecrementationException {
 		switch (lineType) {
-			case "command" -> executeCommand(code.get(i));
+			case "command" -> executeCommand();
 			case "loop" -> {
-				return executeWhileLoop(code.get(i), i, code);
+				executeWhileLoop();
 			}
 			case "end" -> {
-				return endWhileLoop(i);
+				endWhileLoop();
 			}
-			default -> throw new InvalidSyntaxException("Invalid syntax at line " + logicalLineToFileLine.get(i));
+			default -> throw new InvalidSyntaxException("Invalid syntax at line " + logicalLineToFileLine.get(currentLine));
 		}
-		return i;
 	}
 
-	private int endWhileLoop(int i) {
+	private void endWhileLoop() {
 		if (!loopStack.empty()) {
 			String variable = loopStack.peek().get(0);
 			int index = Integer.parseInt(loopStack.peek().get(1));
 			if (variables.get(variable).getValue() == 0) {
 				loopStack.pop();
-				return i;
 			} else {
-				return index;
+				currentLine = index;
 			}
 		}
-		return i;
 	}
 
-	private int executeWhileLoop(String line, int index, ArrayList<String> code) {
+	private void executeWhileLoop() {
+		String line = sourceCode.get(currentLine);
 		String variable = line.substring(6, line.length() - 10);
 		if (variables.get(variable).getValue() != 0) {
 			loopStack.push(new ArrayList<>());
 			loopStack.peek().add(variable);
-			loopStack.peek().add(String.valueOf(index));
-			return index;
-		}
-		else{
-			return skipLoop(code, index);
+			loopStack.peek().add(String.valueOf(currentLine));
+		} else {
+			skipLoop();
 		}
 	}
 
-	private int skipLoop(ArrayList<String> code, int index) {
+	private void skipLoop() {
 		int noOfLoops = loopStack.size();
 		int count = 0;
-		int temp = index;
+		int temp = currentLine;
 		do {
-			if(code.get(temp).contains("while")) {
+			if (sourceCode.get(temp).contains("while")) {
 				noOfLoops++;
-			}
-			else if(code.get(temp).contains("end;")) {
+			} else if (sourceCode.get(temp).contains("end;")) {
 				count++;
 			}
 			temp++;
 		}
-		while(noOfLoops != count);
-		return temp - 1;
+		while (noOfLoops != count);
+		currentLine = temp - 1;
 	}
 
-	private void executeCommand(String command) throws DecrementationException {
+	private void executeCommand() throws DecrementationException {
+		String command = sourceCode.get(currentLine);
 		String operator = command.substring(0, 5).trim(); // returns 1 of "incr", "decr", "clear"
 		String variable = command.substring(5, command.length() - 1).trim();
 		if (!variables.containsKey(variable)) {
