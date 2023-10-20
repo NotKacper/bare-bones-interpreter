@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+// static class containing all input and output methods used by the interpreter.
 public class IOHandler {
 	public static String getUserInput(String message) throws IOException {
 		String fileName;
