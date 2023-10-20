@@ -1,3 +1,8 @@
+package Interpreter_Classes;
+
+import Exceptions.DecrementationException;
+import Exceptions.InvalidSyntaxException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +46,7 @@ public class Interpreter {
 	public void run() {
 		clearRuntime();
 		try {
-			String fileName = IOHandler.getUserInput("What file would you like to interpret?");
+			String fileName = IOHandler.getUserInput("What file would you like to interpret? (input absolute file path)");
 			debugging = IOHandler.getUserInput("Would you like to debug? y/n").equalsIgnoreCase("y");
 			// store file lines inside an ArrayList as Strings
 			sourceCode = IOHandler.getFileContents(fileName, logicalLineToFileLine);
@@ -75,7 +80,8 @@ public class Interpreter {
 			case "command" -> executeCommand();
 			case "loop" -> executeWhileLoop();
 			case "end" -> endWhileLoop();
-			default -> throw new InvalidSyntaxException("Invalid syntax at line " + logicalLineToFileLine.get(currentLinePointer));
+			default ->
+					throw new InvalidSyntaxException("Invalid syntax at line " + logicalLineToFileLine.get(currentLinePointer));
 		}
 	}
 

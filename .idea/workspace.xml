@@ -8,8 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d983a183-bc1d-4ca7-96ec-3069fb341066" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DecrementationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/DecrementationException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IOHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interpreter_Classes/IOHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interpreter_Classes/Interpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InvalidSyntaxException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/InvalidSyntaxException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SyntaxMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interpreter_Classes/SyntaxMatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interpreter_Classes/Variable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +117,7 @@
       <workItem from="1697665828768" duration="1353000" />
       <workItem from="1697748996719" duration="6356000" />
       <workItem from="1697755549441" duration="25000" />
-      <workItem from="1697804703336" duration="4000000" />
+      <workItem from="1697804703336" duration="4740000" />
     </task>
     <servers />
   </component>

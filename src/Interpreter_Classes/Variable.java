@@ -1,3 +1,7 @@
+package Interpreter_Classes;
+
+import Exceptions.DecrementationException;
+
 public class Variable {
 
 	private int value = 0;
