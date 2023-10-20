@@ -19,7 +19,7 @@ public class Interpreter {
 
 	private boolean debugging;
 
-	private int currentLine;
+	private int currentLinePointer;
 
 	private ArrayList<String> sourceCode;
 
@@ -57,16 +57,16 @@ public class Interpreter {
 	private void interpretCode() throws DecrementationException, InvalidSyntaxException, IOException {
 		// linearly search through the code ArrayList with index pointer in order to point to earlier code to execute loops.
 		String lineType;
-		while (currentLine < sourceCode.size()) {
-			// checks if a line of code is a command
-			lineType = syntaxMatcher.matchToSyntax(sourceCode.get(currentLine));
+		while (currentLinePointer < sourceCode.size()) {
+			// checks if a line of code is a command, while loop, or end of a while loop.
+			lineType = syntaxMatcher.matchToSyntax(sourceCode.get(currentLinePointer));
 			executeLine(lineType);
-			IOHandler.displayStatesOfVariables(currentLine, variables, logicalLineToFileLine);
+			IOHandler.displayStatesOfVariables(currentLinePointer, variables, logicalLineToFileLine);
 			if (debugging) {
-				IOHandler.outputMessage(sourceCode.get(currentLine));
+				IOHandler.outputMessage(sourceCode.get(currentLinePointer));
 				IOHandler.getUserInput("enter any input to continue");
 			}
-			currentLine++;
+			currentLinePointer++;
 		}
 	}
 
@@ -75,10 +75,11 @@ public class Interpreter {
 			case "command" -> executeCommand();
 			case "loop" -> executeWhileLoop();
 			case "end" -> endWhileLoop();
-			default -> throw new InvalidSyntaxException("Invalid syntax at line " + logicalLineToFileLine.get(currentLine));
+			default -> throw new InvalidSyntaxException("Invalid syntax at line " + logicalLineToFileLine.get(currentLinePointer));
 		}
 	}
 
+	// if the currentLinePointerPointer encounters an end it will either remove a loop from the stack or continue loopings
 	private void endWhileLoop() {
 		if (!loopStack.empty()) {
 			String variable = loopStack.peek().get(0);
@@ -86,18 +87,18 @@ public class Interpreter {
 			if (variables.get(variable).getValue() == 0) {
 				loopStack.pop();
 			} else {
-				currentLine = index;
+				currentLinePointer = index;
 			}
 		}
 	}
 
 	private void executeWhileLoop() {
-		String line = sourceCode.get(currentLine);
+		String line = sourceCode.get(currentLinePointer);
 		String variable = line.substring(6, line.length() - 10);
 		if (variables.get(variable).getValue() != 0) { // adds loop to the loopStack
 			loopStack.push(new ArrayList<>());
 			loopStack.peek().add(variable);
-			loopStack.peek().add(String.valueOf(currentLine));
+			loopStack.peek().add(String.valueOf(currentLinePointer));
 		} else {
 			skipLoop(); // if the initial conditions for the loop are not met then skip to the end of the loop
 		}
@@ -106,7 +107,7 @@ public class Interpreter {
 	private void skipLoop() {
 		int noOfLoops = loopStack.size();
 		int count = 0;
-		int temp = currentLine;
+		int temp = currentLinePointer;
 		do {
 			if (sourceCode.get(temp).contains("while")) {
 				noOfLoops++;
@@ -115,11 +116,11 @@ public class Interpreter {
 			}
 			temp++;
 		} while (noOfLoops != count);
-		currentLine = temp - 1;
+		currentLinePointer = temp - 1;
 	}
 
 	private void executeCommand() throws DecrementationException {
-		String command = sourceCode.get(currentLine);
+		String command = sourceCode.get(currentLinePointer);
 		String operator = command.substring(0, 5).trim(); // returns 1 of "incr", "decr", "clear"
 		String variable = command.substring(5, command.length() - 1).trim();
 		if (!variables.containsKey(variable)) { // if the variable doesn't exist in the map then add it.
