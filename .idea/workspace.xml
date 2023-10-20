@@ -8,9 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d983a183-bc1d-4ca7-96ec-3069fb341066" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/syntaxErrors.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nestedloops" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/demo.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +113,7 @@
       <workItem from="1697748996719" duration="6356000" />
       <workItem from="1697755549441" duration="25000" />
       <workItem from="1697804703336" duration="4772000" />
-      <workItem from="1697813520286" duration="678000" />
+      <workItem from="1697813520286" duration="854000" />
     </task>
     <servers />
   </component>

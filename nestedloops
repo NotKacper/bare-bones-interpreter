@@ -1,0 +1,8 @@
+incr X;
+incr Y;
+while X not 0 do;
+    while Y not 0 do;
+    decr Y;
+    end;
+decr X;
+end;
